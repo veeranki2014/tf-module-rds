@@ -11,6 +11,6 @@ resource "aws_rds_cluster" "main" {
   engine                  = var.engine
   engine_version          = var.engine_version
   #db_name                 = var.db_name
-  master_username         = data.aws_ssm_parameter.username.value
-  master_password         = data.aws_ssm_parameter.password.value
+  #master_username         = data.aws_ssm_parameter.username.value
+  #master_password         = data.aws_ssm_parameter.password.value
 }
