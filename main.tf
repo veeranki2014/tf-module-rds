@@ -10,7 +10,7 @@ resource "aws_rds_cluster" "main" {
   cluster_identifier      = "${var.component}-${var.env}"
   engine                  = var.engine
   engine_version          = var.engine_version
-  #db_name                 = var.db_name
-  #master_username         = data.aws_ssm_parameter.username.value
-  #master_password         = data.aws_ssm_parameter.password.value
+  db_name                 = var.db_name
+  master_username         = data.aws_ssm_parameter.username.value
+  master_password         = data.aws_ssm_parameter.password.value
 }
