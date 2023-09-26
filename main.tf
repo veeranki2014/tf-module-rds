@@ -19,3 +19,11 @@ resource "aws_rds_cluster" "main" {
   storage_encrypted       = true
   final_snapshot_identifier = true
 }
+
+resource "aws_rds_cluster_instance" "cluster_instances" {
+  count              = var.instance_count
+  identifier         = "aurora-cluster-demo-${count.index}"
+  cluster_identifier = "${aws_rds_cluster.main.id}"
+  instance_class     = var.instance_class
+}
+
