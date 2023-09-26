@@ -1,3 +1,29 @@
+# Security Groups
+resource "aws_security_group" "main" {
+  name        = "${var.component}-${var.env}-sg"
+  description = "${var.component}-${var.env}-sg"
+  vpc_id      = var.vpc_id
+
+  ingress {
+    from_port   = 3306
+    to_port     = 3306
+    protocol    = "tcp"
+    cidr_blocks = var.sg_subnet_cidr
+
+  }
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "${var.component}-${var.env}-sg"
+  }
+}
+
+
 resource "aws_db_subnet_group" "main" {
   name       = "main"
   subnet_ids = var.subnet_ids
@@ -18,6 +44,7 @@ resource "aws_rds_cluster" "main" {
   kms_key_id              = var.kms_key_arn
   storage_encrypted       = true
   skip_final_snapshot     = true
+  vpc_security_group_ids  = [aws_security_group.main.id]
 }
 
 resource "aws_rds_cluster_instance" "cluster_instances" {
