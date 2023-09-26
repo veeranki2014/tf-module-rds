@@ -17,4 +17,5 @@ resource "aws_rds_cluster" "main" {
   db_subnet_group_name    = aws_db_subnet_group.main.name
   kms_key_id              = var.kms_key_arn
   storage_encrypted       = true
+  final_snapshot_identifier = true
 }
